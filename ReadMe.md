@@ -8,6 +8,10 @@ The lab replicates a simplified production-style architecture while running enti
 
 The system simulates a layered infrastructure environment.
 
+![Key Generation and Authentication Flow](./assets/install-process.png)
+
+![Network Topology and Static IP Routing](./assets/lab-network.png)
+
 ```text
                  +--------------------+
                  |    Ansible Host    |
@@ -56,6 +60,8 @@ Stores application data and provides backend persistence (exposes port 5432).
 
 ```bash
 ansible-lab
+│
+├── assets/             # Architecture diagrams and visuals
 │
 ├── keys/               # Generated SSH keys for cluster auth
 │
