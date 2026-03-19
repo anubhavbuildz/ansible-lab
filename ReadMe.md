@@ -20,8 +20,8 @@ The system simulates a layered infrastructure environment.
           |                                   |
           v                                   v
 +-------------------+               +-------------------+
-|   Load Balancer   |-------------->|    Web Server     |
-|      (Nginx)      |               |   Application     |
+|     server_2      |-------------->|     server_3      |
+| Load Balancer(80) |               |  App Server(8080) |
 +---------+---------+               +---------+---------+
           |                                   |
           |                                   |
@@ -29,8 +29,8 @@ The system simulates a layered infrastructure environment.
                             |
                             v
                   +-------------------+
-                  |      Database     |
-                  |      Service      |
+                  |     server_1      |
+                  |  Database (5432)  |
                   +-------------------+
 ```
 
@@ -38,37 +38,38 @@ The system simulates a layered infrastructure environment.
 
 ### Control Layer
 
-The Ansible control node manages and configures all infrastructure components.
+The Ansible control node (`host`) manages and configures all infrastructure components via SSH.
 
-### Load Balancer Layer
+### Load Balancer Layer (`server_2`)
 
-Distributes incoming requests to backend services.
+Distributes incoming requests to backend services (exposes port 80).
 
-### Application Layer
+### Application Layer (`server_3`)
 
-Handles application logic and processes client requests.
+Handles application logic and processes client requests (exposes port 8080).
 
-### Database Layer
+### Database Layer (`server_1`)
 
-Stores application data and provides backend persistence.
+Stores application data and provides backend persistence (exposes port 5432).
 
 ## Project Structure
 
 ```bash
 ansible-lab
 │
-├── db
-│   └── Dockerfile
-│
 ├── host
 │   └── Dockerfile
 │
-├── load_balancer
+├── server_1
 │   └── Dockerfile
 │
-├── web
+├── server_2
 │   └── Dockerfile
 │
+├── server_3
+│   └── Dockerfile
+│
+├── ansible-lab.sh
 ├── docker-compose.yml
 └── README.md
 ```
@@ -77,23 +78,27 @@ ansible-lab
 
 ### `host`
 
-Acts as the Ansible control node responsible for running automation playbooks and managing the environment.
+Acts as the Ansible control node responsible for running automation playbooks and managing the environment. Runs with IP `172.20.0.30`.
 
-### `load_balancer`
+### `server_1` (Database)
 
-Represents the traffic routing layer responsible for distributing incoming requests.
+Database service intended for backend persistence, simulating a service like PostgreSQL. Exposes ports 22 and 5432. Runs with IP `172.20.0.10`.
 
-### `web`
+### `server_2` (Load Balancer / Web)
 
-Application server responsible for handling requests and communicating with the database.
+Represents the traffic routing layer responsible for distributing incoming requests. Exposes ports 22 and 80. Runs with IP `172.20.0.20`.
 
-### `db`
+### `server_3` (Application Server)
 
-Database service used by the application layer.
+Application server responsible for handling requests and communicating with the database. Exposes ports 22 and 8080. Runs with IP `172.20.0.5`.
 
 ### `docker-compose.yml`
 
-Defines and orchestrates the multi-container infrastructure environment.
+Defines and orchestrates the multi-container infrastructure environment with a custom bridge network assigning static IPs to each container.
+
+### `ansible-lab.sh`
+
+A shell script intended to automate the initial setup process of the Ansible lab environment.
 
 ## Technologies Used
 
@@ -102,7 +107,7 @@ Defines and orchestrates the multi-container infrastructure environment.
 | **Docker**         | Containerized infrastructure simulation                |
 | **Docker Compose** | Multi-container orchestration                          |
 | **Ansible**        | Infrastructure automation and configuration management |
-| **Linux**          | Base operating system                                  |
+| **Linux (Debian)** | Base operating system                                  |
 | **SSH**            | Remote automation and configuration                    |
 
 ## What This Project Demonstrates

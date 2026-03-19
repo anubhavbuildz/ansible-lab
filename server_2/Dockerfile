@@ -12,6 +12,9 @@ RUN apt-get update && \
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config && \
     apt-get clean
 
-EXPOSE 22 8080
+
+RUN echo 'root:ansible-lab' | chpasswd
+
+EXPOSE 22 80
 
 CMD ["/usr/sbin/sshd", "-D"]
