@@ -2,40 +2,43 @@ name: ansible-lab
 
 services:
   server_1:
-    build: ./server_1
+    build:
+      context: .
+      dockerfile: server_1/Dockerfile
     container_name: server_1
     networks:
       ansible-lab:
         ipv4_address: 172.20.0.10
-
     cpus: 0.5
 
-
   server_2:
-    build: ./server_2
+    build:
+      context: .
+      dockerfile: server_2/Dockerfile
     container_name: server_2
     networks:
       ansible-lab:
         ipv4_address: 172.20.0.20
-
     cpus: 0.5
 
   server_3:
-    build: ./server_3
+    build:
+      context: .
+      dockerfile: server_3/Dockerfile
     container_name: server_3
     networks:
       ansible-lab:
         ipv4_address: 172.20.0.5
-
     cpus: 0.5
 
   host:
-    build: ./host
+    build:
+      context: .
+      dockerfile: host/Dockerfile
     container_name: host
     networks:
       ansible-lab:
         ipv4_address: 172.20.0.30
-
     cpus: 0.5
 
 networks:

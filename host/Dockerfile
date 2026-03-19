@@ -1,6 +1,8 @@
 FROM debian:bookworm-slim
 
 RUN apt-get update && \
+    apt-get install  iputils-ping -y && \
+    apt-get install  nmap -y && \
     apt-get install -y openssh-server sudo &&  apt-get install ansible -y && \
     mkdir /var/run/sshd && \
     mkdir -p /root/.ssh && \
@@ -11,6 +13,9 @@ RUN apt-get update && \
     sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config && \
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
     apt-get clean
+
+COPY keys/id_rsa /root/.ssh/id_rsa
+RUN chmod 600 /root/.ssh/id_rsa
 
 RUN echo 'root:ansible-lab' | chpasswd 
 EXPOSE 22

@@ -13,6 +13,9 @@ RUN apt-get update && \
     apt-get clean
 
 
+COPY keys/id_rsa.pub /root/.ssh/authorized_keys
+RUN chmod 600 /root/.ssh/authorized_keys
+
 RUN echo 'root:ansible-lab' | chpasswd
 
 EXPOSE 22 80

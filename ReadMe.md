@@ -57,6 +57,8 @@ Stores application data and provides backend persistence (exposes port 5432).
 ```bash
 ansible-lab
 │
+├── keys/               # Generated SSH keys for cluster auth
+│
 ├── host
 │   └── Dockerfile
 │
@@ -71,6 +73,9 @@ ansible-lab
 │
 ├── ansible-lab.sh
 ├── docker-compose.yml
+├── howto.md
+├── SECURITY.md
+├── ACKNOWLEDGEMENT.md
 └── README.md
 ```
 
@@ -82,15 +87,15 @@ Acts as the Ansible control node responsible for running automation playbooks an
 
 ### `server_1` (Database)
 
-Database service intended for backend persistence, simulating a service like PostgreSQL. Exposes ports 22 and 5432. Runs with IP `172.20.0.10`.
+Database service intended for backend persistence, simulating a service like PostgreSQL. Exposes ports 22 and 5432. Runs with IP `172.20.0.10` (Key-based SSH login).
 
 ### `server_2` (Load Balancer / Web)
 
-Represents the traffic routing layer responsible for distributing incoming requests. Exposes ports 22 and 80. Runs with IP `172.20.0.20`.
+Represents the traffic routing layer responsible for distributing incoming requests. Exposes ports 22 and 80. Runs with IP `172.20.0.20` (Key-based SSH login).
 
 ### `server_3` (Application Server)
 
-Application server responsible for handling requests and communicating with the database. Exposes ports 22 and 8080. Runs with IP `172.20.0.5`.
+Application server responsible for handling requests and communicating with the database. Exposes ports 22 and 8080. Runs with IP `172.20.0.5` (Key-based SSH login).
 
 ### `docker-compose.yml`
 
@@ -98,7 +103,7 @@ Defines and orchestrates the multi-container infrastructure environment with a c
 
 ### `ansible-lab.sh`
 
-A shell script intended to automate the initial setup process of the Ansible lab environment.
+A unified CLI wrapper script intended to automate the environment. Includes commands to `init` (install dependencies and generate SSH keys), `start`, `stop`, `clean`, and check `status`.
 
 ## Technologies Used
 
@@ -143,7 +148,8 @@ cd ansible-lab
 Build and start the infrastructure:
 
 ```bash
-docker-compose up --build
+./ansible-lab.sh init
+./ansible-lab.sh start
 ```
 
 Docker will build all service containers and start the infrastructure environment.

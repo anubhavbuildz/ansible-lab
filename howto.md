@@ -3,9 +3,10 @@
 This guide explains how to write your first Ansible inventory, playbook, and roles, and how to execute them against the simulated lab environment. All of these steps should be performed **inside the `host` container**, which acts as your Ansible Control Node.
 
 ## 1. Access the Ansible Control Node
-First, ensure your lab is running:
+First, ensure your lab is fully initialized and running:
 ```bash
-./ansible-lab.sh --start
+./ansible-lab.sh init
+./ansible-lab.sh start
 ```
 Once the containers are up, access the `host` node:
 ```bash
@@ -27,10 +28,9 @@ server_2 ansible_host=172.20.0.20 ansible_user=root
 server_3 ansible_host=172.20.0.5 ansible_user=root
 
 [all:vars]
-ansible_ssh_pass=ansible-lab
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 ```
-*(Note: Using passwords in plain text is fine for a local lab, but in production, you would use SSH keys or Ansible Vault).*
+*(Note: Passwordless SSH key authentication is now pre-configured automatically by the `./ansible-lab.sh init` script! The private key is automatically mapped into the host container during deployment.)*
 
 ## 3. Create your First Playbook (`ping.yml`)
 A playbook defines the tasks you want to execute against the target hosts. Let's start with a simple ping test.
