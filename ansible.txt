@@ -1,0 +1,2 @@
+ansible-inventory -i inventory.ini --list
+ansible server -m ping -i inventory.ini

@@ -1,11 +1,12 @@
 FROM debian:bookworm-slim
 
 RUN apt-get update && \
-    apt-get install -y openssh-server sudo && \
+    apt-get install -y openssh-server && \
+    apt-get install python3 -y sudo &&   \
     mkdir /var/run/sshd && \
     mkdir -p /root/.ssh && \
     chmod 700 /root/.ssh && \
-    echo "$SSH_PUBLIC_KEY" > /root/.ssh/authorized_keys && \
+    echo "$SSH_PUBLIC_KEY" > /root/.ssh/authorized_keys &&  \
     chmod 600 /root/.ssh/authorized_keys && \
     sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config && \

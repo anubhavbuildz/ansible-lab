@@ -1,7 +1,8 @@
 FROM debian:bookworm-slim
 
 RUN apt-get update && \
-    apt-get install -y openssh-server sudo && \
+    apt-get install -y openssh-server && \
+    apt-get install python3 -y sudo &&\
     mkdir /var/run/sshd && \
     mkdir -p /root/.ssh && \
     chmod 700 /root/.ssh && \
