@@ -45,6 +45,12 @@
         <section id="architecture" class="glass-panel slide-up delay-2">
             <div class="panel-header"><h2>Architecture Overview</h2></div>
             <div class="panel-content">
+                <div class="diagram-container">
+                    <img src="assets/lab-network.png" alt="Network Topology and Static IP Routing" class="diagram-img">
+                    <div class="diagram-caption">Network Topology and Static IP Routing</div>
+                </div>
+                
+                <h3 style="margin-top: 2.5rem; margin-bottom: 1rem; color: var(--text-primary); font-size: 1.25rem;">ASCII Representation</h3>
                 <div class="code-window">
                     <pre><code>                 +--------------------+
                  |    Ansible Host    |
@@ -72,6 +78,10 @@
                 <p>Build and start the infrastructure:</p>
                 <div class="code-block">
                     <code>./ansible-lab.sh init<br>./ansible-lab.sh start</code>
+                </div>
+                <div class="diagram-container" style="margin-top: 2.5rem;">
+                    <img src="assets/install-process.png" alt="Key Generation and Authentication Flow" class="diagram-img">
+                    <div class="diagram-caption">Initialization Process: Key Generation and Authentication Flow</div>
                 </div>
             </div>
         </section>

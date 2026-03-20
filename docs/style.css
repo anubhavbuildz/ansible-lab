@@ -109,3 +109,33 @@ pre, .code-block { padding: 1.5rem; color: #a5b4fc; font-family: 'JetBrains Mono
 /* Footer */
 footer { text-align: center; padding: 2rem; border-top: 1px solid var(--glass-border); margin-top: 4rem; }
 .author-link { color: var(--accent-secondary); text-decoration: none; }
+
+/* Diagrams & Images */
+.diagram-container {
+    margin: 2rem 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.diagram-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    border-color: var(--accent-primary);
+}
+.diagram-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0.5rem;
+}
+.diagram-caption {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-top: 1.25rem;
+    font-weight: 500;
+}
