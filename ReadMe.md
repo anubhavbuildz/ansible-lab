@@ -8,9 +8,9 @@ The lab replicates a simplified production-style architecture while running enti
 
 The system simulates a layered infrastructure environment.
 
-![Key Generation and Authentication Flow](./assets/install-process.png)
+![Key Generation and Authentication Flow](./docs/assets/install-process.png)
 
-![Network Topology and Static IP Routing](./assets/lab-network.png)
+![Network Topology and Static IP Routing](./docs/assets/lab-network.png)
 
 ```text
                  +--------------------+
